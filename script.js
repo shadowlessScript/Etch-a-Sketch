@@ -17,7 +17,8 @@
 
 // get the container
 const container = document.querySelector(".container");
-
+container.style.width = "500px";
+container.style.height = "500px";
 // get the button
 const btnChangeGrid = document.querySelector(".change-grid");
 
@@ -37,38 +38,37 @@ let changeGrid = function (n) {
     
 }
 
-function createGrid(n) {
-    // create a div
-    // const div = createDiv()
-    container.style.width = `${n * 32}px`;
-    container.style.height = `${n * 32}px`;
-
+function createGrid(n) {   
+    let gridDimension = container.clientWidth / n;    
+    console.log(container.clientWidth/n)
     for (let i = 0; i < n*n; i++)
     {        
-        createDiv()
+        createDiv(gridDimension)
     }
 }
 
-function createDiv() {
+function createDiv(dim) {
     let square = document.createElement("div");   
     let changeBlackCounter = 10;
+    square.style.width = `${dim}px`;
+    square.style.height = `${dim}px`;
     square.classList.add("grid");
     container.appendChild(square);
 
-    square.addEventListener("mouseover", () => {
-        square.style.backgroundColor = randomColor(changeBlackCounter);
+    square.addEventListener("click", () => {
+        square.style.backgroundColor = randomColor();
         changeBlackCounter +=10;
      
     });
     
-    square.addEventListener("mouseout", () => {
-        square.style.backgroundColor = "white"
+    // square.addEventListener("mouseout", () => {
+    //     square.style.backgroundColor = "white"
 
-    });
+    // });
     return square
 }
 
-let randomColor = function (n) {
+let randomColor = function () {
     let black = Math.floor(Math.random() * 255)
     // console.log("----", black, n)
     // black *= (100+n)/100
@@ -78,3 +78,5 @@ let randomColor = function (n) {
     return `rgb(${red}, ${green}, ${black})`
 }
 changeGrid(16);
+
+
